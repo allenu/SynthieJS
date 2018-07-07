@@ -48,7 +48,6 @@ function SetupAudio() {
     g_audioNode.onaudioprocess = function(e) {
         var output = e.outputBuffer.getChannelData(0)
         for (var i = 0; i < g_bufferSize; i++) {
-            // let sample = Math.random() * 2 - 1
             let time = g_time + i * 1.0 / g_sampleRate
             let sample = f_synthesizer_sample(g_synthesizer, time)
             output[i] = sample
@@ -56,8 +55,6 @@ function SetupAudio() {
         g_time = g_time + g_bufferTime
     }
 
-    // TODO: We use gain to disable audio output at first. It would be more prudent
-    // to just stop() the output entirely if we can.
     g_gainNode = audioContext.createGain()
     g_gainNode.gain.value = g_fullGain
     g_gainNode.connect(audioContext.destination)

@@ -15,6 +15,7 @@ function f_oscillator_sample(oscillator_type, freq, start_time, time) {
 
     switch(oscillator_type) {
         case kSineWave:
+            // TODO: all the other cases
         default:
             return Math.sin(theta)
     }
