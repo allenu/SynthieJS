@@ -9,15 +9,92 @@ var kSilence = 5
 var kSynthesizerAction_PlayTone = 0
 var kSynthesizerAction_ReleaseTone = 1
 
+// Limit theta to 0.0 to 2xPI. This assumes theta >= 0.0.
+function Mod2Pi(theta) {
+    while (theta >= 2.0*Math.PI) {
+        theta -= 2.0*Math.PI
+    }
+    return theta
+}
+
+function normalize_angle(theta) {
+    if (theta < 0) {
+        let multiples = theta / (2.0*Math.PI)
+        theta += (2.0*Math.PI) * (multiples + 1)
+    }
+    theta = Mod2Pi(theta)
+    return theta
+}
+
+function sawtooth(theta) {
+    theta = normalize_angle(theta)
+
+    if (theta < Math.PI ) {
+        return theta / Math.PI
+    } else {
+        return -1.0 + (theta - Math.PI) / Math.PI
+    }
+}
+
+//
+// Triangle wave
+//
+function triwave(theta) {
+    theta = normalize_angle(theta)
+    
+    if (theta < Math.PI / 2.0) {
+        return theta / (Math.PI / 2.0)
+    } else if (theta < 3.0 * Math.PI / 2.0) {
+        return 1.0 - 2.0 * (theta - (Math.PI / 2.0)) / Math.PI
+    } else {
+        return (theta - 3.0 * Math.PI / 2.0) / (Math.PI / 2.0)
+    }
+}
+
+// Duty cycle = 0.0 to 1.0
+function squarewave(theta, duty_cycle) {
+    theta = normalize_angle(theta)
+    
+    if (theta < 2.0*Math.PI*duty_cycle)
+        return 1.0
+    else
+        return -1.0   
+}
+
+function noisewave(theta) {
+    theta = normalize_angle(theta)
+
+    let sample = Math.random()*2 - 1
+    
+    return sample
+}
+
+// Oscillates from -1 to +1
 function f_oscillator_sample(oscillator_type, freq, start_time, time) {
     let normalized_time = time - start_time
     let theta = 2.0 * Math.PI * freq * normalized_time
 
     switch(oscillator_type) {
         case kSineWave:
-            // TODO: all the other cases
-        default:
             return Math.sin(theta)
+
+        case kTriangleWave:
+            return triwave(theta)
+
+        case kSquareWave:
+            return squarewave(theta, 0.70)
+
+        case kSawtoothWave:
+            return sawtooth(theta)
+
+        case kNoiseWave:
+            return noisewave(theta)
+
+        case kSilence:
+            return 0.0
+
+        default:
+            return 0.0
     }
 }
 
