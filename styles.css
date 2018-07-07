@@ -1,0 +1,31 @@
+
+body {
+  background-color: #f4f040;
+  font-family: Garamond;
+  padding: 48px;
+  font-size: 14pt;
+  color: #555;
+}
+h1 {
+  font-size: 11pt;
+  color: #000;
+}
+h2 {
+  font-size: 24pt;
+}
+#StartButton {
+    font-size: 30pt;
+    color: #37a;
+    font-weight: bold;
+  text-align: center;
+}
+
+.instructions {
+    font-size: 22pt;
+    color: #555;
+    padding-bottom: 20px;
+}
+
+.footer {
+    padding-top: 80px;
+}

@@ -1,10 +1,18 @@
 <html>
+<link href="styles.css" rel="stylesheet">
 <head>
     <title>SynthieJS</title>
 </head>
 <body>
+    <p>This is a demo of SynthieJS, a simple audio synthesizer written in a functional style.</p>
+    <div class="instructions">Hit Start to play a simple dial tone sound (350Hz + 440Hz tones). It will play for 5 seconds and then release.</div>
     <a id="StartButton" href="javascript:DidPressStart();">Start</a>
+    <div class="footer">
+        <h2>Project Info</h2>
+        <p>made by Allen Ussher <a href="https://twitter.com/ussherpress">@ussherpress</a></p>
+        <p>See <a href="https://github.com/allenu/SynthieJS">github.com/allenu/SynthieJS</a>.</p>
+    </div>
 </body>
-<script src="./Controller.js"></script>
 <script src="./Synthie.js"></script>
+<script src="./Controller.js"></script>
 </html>

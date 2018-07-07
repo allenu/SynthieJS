@@ -1,0 +1,18 @@
+
+body {
+  background-color: #f0f0f0;
+  font-family: Courier;
+}
+h1 {
+  font-size: 11pt;
+  color: #000;
+}
+h2 {
+  font-size: 8pt;
+  color: #330;
+}
+.StartButton {
+    font-size: 20pt;
+    color: #ff0;
+}
+
