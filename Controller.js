@@ -16,7 +16,7 @@ function DidPressStart() {
     if (g_playing) {
         g_playing = false
         g_gainNode.gain.value = 0.0
-        startButton.text = "Start"
+        startButton.text = "Play"
         TearDownAudio()
     } else {
         g_playing = true

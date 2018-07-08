@@ -4,13 +4,20 @@
     <title>SynthieJS</title>
 </head>
 <body>
+        <h1>Synthie</h1>
     <p>This is a demo of SynthieJS, a simple audio synthesizer written in a functional style.</p>
-    <div class="instructions">Hit Start to play a simple dial tone sound (350Hz + 440Hz tones). It will play for 5 seconds and then release.</div>
-    <a id="StartButton" href="javascript:DidPressStart();">Start</a>
+    <div class="instructions">Hit Play to play a simple dial tone sound (350Hz + 440Hz tones). It will play for 5 seconds and then release.</div>
+    <div class="playdiv">
+      <a id="StartButton" href="javascript:DidPressStart();">Play</a>
+    </div>
+    <div>
+        <p>The audio is synthesized, i.e. the samples are generated and not previously recorded.</p>
+        <p>SynthieJS can play various waveforms (sine, triangle, sawtooth, square, noise) and can be useful for your next retro 8-bit style web game.</p>
+    </div>
     <div class="footer">
         <h2>Project Info</h2>
-        <p>made by Allen Ussher <a href="https://twitter.com/ussherpress">@ussherpress</a></p>
-        <p>See <a href="https://github.com/allenu/SynthieJS">github.com/allenu/SynthieJS</a>.</p>
+        <p>made by allen ussher <a href="https://twitter.com/ussherpress">@ussherpress</a></p>
+        <p>see <a href="https://github.com/allenu/SynthieJS">github.com/allenu/SynthieJS</a>.</p>
     </div>
 </body>
 <script src="./Synthie.js"></script>
