@@ -164,7 +164,7 @@ function f_instrument_sample(instrument, freq, note_play_time, note_released, no
 function f_synthesizer_sample(synthesizer, time) {
     // Our "mixing" of audio is super simple: just take the average of all of the channels
     let avg_sample = 0.0
-    for (var i=0; i < synthesizer.num_channels; i++) {
+    for (var i=0; i < synthesizer.channels.length; i++) {
         let channel = synthesizer.channels[i];
         let instrument_sample = f_instrument_sample(channel.instrument, channel.freq, channel.note_play_time,
                     channel.note_released, channel.note_release_time, time)
@@ -185,10 +185,10 @@ function f_synthesizer_sample(synthesizer, time) {
 // - num_commands: how many commands to execute on the synth
 // - commands: an array of the commands that will change the synth state
 //
-function f_next_synthesizer_state(prev_state, num_commands, commands) {
+function f_next_synthesizer_state(prev_state, commands) {
     let next_state = {...prev_state}
 
-    for (var i=0; i < num_commands; i++) {
+    for (var i=0; i < commands.length; i++) {
         let command = commands[i]
 
         switch (command.action_type) {
@@ -211,9 +211,7 @@ function f_next_synthesizer_state(prev_state, num_commands, commands) {
     return next_state
 }
 
-// TODO: Make this less specific. At the moment, it creates a dial-tone synthesizer that plays
-// the tones for 5s and then releases them.
-function f_create_synthesizer() {
+function f_create_dialtone_synthesizer() {
     let envelope = {
         attack_time: 0.5,
         attack_gain: 1.0,
@@ -221,9 +219,24 @@ function f_create_synthesizer() {
         sustain_gain: 0.8,
         release_time: 1.0,
     }
+    let boom_envelope = {
+        attack_time: 0.1,
+        attack_gain: 1.0,
+        decay_time: 0.04,
+        sustain_gain: 0.0,
+        release_time: 0.0,
+    }
 
     let bass = {
         oscillator: kSineWave,
+        envelope: envelope,
+    }
+    let boom = {
+        oscillator: kSquareWave,
+        envelope: boom_envelope,
+    }
+    let silence = {
+        oscillator: kSilence,
         envelope: envelope,
     }
 
@@ -242,10 +255,76 @@ function f_create_synthesizer() {
             note_released: true,
             note_release_time: 5.0,
         },
+        {
+            instrument: boom,
+            freq: 60,
+            note_play_time: 2.0,
+            note_released: true,
+            note_release_time: 4.0,
+        },
+        {
+            instrument: boom,
+            freq: 120,
+            note_play_time: 2.0,
+            note_released: true,
+            note_release_time: 1.0,
+        },
     ]
 
     let synth = {
-        num_channels: 2,
+        num_channels: 4,
+        channels: channels
+    }
+    return synth
+}
+
+function f_create_empty_synthesizer() {
+    let envelope = {
+        attack_time: 0.5,
+        attack_gain: 1.0,
+        decay_time: 0.2,
+        sustain_gain: 0.8,
+        release_time: 1.0,
+    }
+
+    let silence = {
+        oscillator: kSilence,
+        envelope: envelope,
+    }
+
+    let channels = [
+        {
+            instrument: silence,
+            freq: 440,
+            note_play_time: 0.0,
+            note_released: true,
+            note_release_time: 5.0,
+        },
+        {
+            instrument: silence,
+            freq: 350,
+            note_play_time: 0.0,
+            note_released: true,
+            note_release_time: 5.0,
+        },
+        {
+            instrument: silence,
+            freq: 60,
+            note_play_time: 2.0,
+            note_released: true,
+            note_release_time: 4.0,
+        },
+        {
+            instrument: silence,
+            freq: 120,
+            note_play_time: 2.0,
+            note_released: true,
+            note_release_time: 1.0,
+        },
+    ]
+
+    let synth = {
+        num_channels: 4,
         channels: channels
     }
     return synth
