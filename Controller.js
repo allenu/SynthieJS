@@ -3,7 +3,7 @@ var g_sampleRate = 44100
 var g_playing = false
 var g_audioNode = null
 var g_gainNode = null
-var g_fullGain = 0.8
+var g_fullGain = 0.5
 var g_audioContext
 var g_time = 0.0
 var g_bufferSize = 4096
